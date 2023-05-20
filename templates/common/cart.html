@@ -1,0 +1,196 @@
+{% extends 'common/layout.html' %}
+{% load static %}
+
+{% block title %}
+<title>Zencart | Cart</title>
+{% endblock %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static '/styles/cart.css'%}">
+{% endblock %}
+
+{% block page_content %}
+<section class="bg-light pt-3" id="card-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 me-3">
+                <div class="row p-1">
+                    <div class="bg-primary pt-4 pb-3 text-center card">
+                        <h5 class="text-light h5t-3 pb-2">
+                            SHOPPING CART <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                            CHECKOUT <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                            ORDER COMPLETE</h5>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="card pt-3 pb-2">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>PRODUCT</th>
+                                    <th>PRICE</th>
+                                    <th>QUANTITY</th>
+                                    <th>SUBTOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-link p-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
+                                                class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                                <path
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td>Product_namekls;dhfagfkldsahga[</td>
+                                    <td>$20</td>
+                                    <td>
+                                        <input class="form-control" type="number" value="1" min="1"
+                                            style="width: 60px;">
+                                    </td>
+                                    <td>$200</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-link p-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="red"
+                                                class="bi bi-trash" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z" />
+                                                <path
+                                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                    <td>Product_namekls;dhfagfkldsahga[</td>
+                                    <td>$20</td>
+                                    <td>
+                                        <input class="form-control" type="number" id="item-quantity" value="1" min="1"
+                                            style="width: 60px;">
+                                    </td>
+                                    <td>$200</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Choose Flat Offers</option>
+                                    <option value="1">One</option>
+                                  </select>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-primary">Apply Discount</button>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-dark" disabled>Update Cart</button>
+                            </div>
+                        </div><br>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 ps-4 mt-1 card" style="height: 52vb;">
+                <div class="summary">
+                    <div>
+                        <h5 class="pt-3 pb-2"><b>Cart Totals</b></h5>
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col"><b>SubTotal</b></div>
+                            <div class="col" style="text-align: right;">&euro; 132.00</div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col">&nbsp;</div>
+                            <div class="col pb-3" style="text-align: right;">Flat rate: <span class="text-primary">$500</span></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col"><b>Shipping</b></div>
+                            <div class="col pb-3" style="text-align: right;">tes lkfdsajfh aflsdf fasld</div>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+
+
+                <div class="row">
+                    <div class="col"><b>Total</b></div>
+                    <div class="col pb-5" style="text-align: right;"><b><span class="text-primary" >&euro; 137.00</span></b></div>
+                </div>
+                <button class="btn btn-dark">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+    crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        displayTotal()
+        $.ajaxSetup({
+            headers: {
+                "X-CSRFToken": '{{ csrf_token }}'
+            }
+        })
+        $('#item-quantity').change(function () {
+            let qty = $(this).val()
+            let pid = $(this).attr('data-item')
+
+
+
+            $.ajax({
+                url: "",
+
+                data: {
+                    'qty': qty,
+                    'pid': pid
+                },
+                method: 'POST',
+                success: function (response) {
+                    $('#amt' + pid).text(response.total)
+                    console.log(response.total)
+                    displayTotal()
+                }
+            })
+        })
+
+    })
+
+    function displayTotal() {
+        let total = 0
+        let amt = $(".amt")
+        for (let i = 0; i < amt.length; i++) {
+            total = total + parseInt(amt[i].textContent)
+        }
+        $('#Total').html(total)
+
+    }
+
+
+</script>
+{% endblock %}
