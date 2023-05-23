@@ -1,0 +1,158 @@
+{% extends 'customer/layout.html' %}
+{% load static %}
+
+{% block title %}
+<title>Zencart | Checkout</title>
+{% endblock %}
+
+{% block link %}
+{% endblock %}
+
+{% block page_content %}
+<section class="bg-light pt-3" id="card-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 me-3">
+                <div class="row p-1">
+                    <div class="bg-primary pt-4 pb-3 text-center card">
+                        <h5 class="text-light h5t-3 pb-2">
+                            CHECKOUT <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+                            </svg>
+                            ORDER COMPLETE</h5>
+                    </div>
+                </div>
+                <div class="row p-1">
+                    <div class="card mt-3 p-4">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div>
+                                <h5 class="pt-3 pb-2"><b>Billing Details</b></h5>
+                            </div>
+                            <div class="row pb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Name</label>
+                                        <input type="text" class="form-control" name="name"
+                                            aria-describedby="emailHelp" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Phone</label>
+                                        <input type="number" class="form-control" name="phone"
+                                            aria-describedby="emailHelp" placeholder="+91" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pb-2">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Address</label>
+                                    <textarea name="address" class="form-control" rows="5" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row pb-2">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Place</label>
+                                        <input type="text" class="form-control" name="place"
+                                            aria-describedby="emailHelp" placeholder="" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Postcode / ZIP</label>
+                                        <input type="number" class="form-control" name="pincode"
+                                            aria-describedby="emailHelp" placeholder="" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row pb-2">
+
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="email" class="form-control" name="email"
+                                        aria-describedby="emailHelp" placeholder="" required>
+                                </div>
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="row justify-content-center text-center mt-4">
+                                    <button class="btn btn-dark" type="submit" style="width: 50%;">Place Order</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-4 ps-4 mt-1 card">
+                <div class="summary">
+                    <div>
+                        <h5 class="pt-3 pb-2"><b>Your Order</b></h5>
+                    </div>
+                    <form>
+                        <div class="row pb-3">
+                            <div class="col"><b>PRODUCT</b></div>
+                            <div class="col" style="text-align: right;" id="item_subTotal"><b>SUBTOTAL</b>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row pb-3">
+                            <div class="col">Item Items</div>
+                            <div class="col" style="text-align: right;" id="item_subTotal">{{totalQuantity}}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row pb-4">
+                            <div class="col">packages</div>
+                            <div class="col" style="text-align: right;" id="item_subTotal">{{num_packages}}
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row pb-3">
+                            <div class="col">Item Total</div>
+                            <div class="col" style="text-align: right;" id="item_subTotal"><b class="text-primary">{{subtotal}}</b>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row pb-3">
+                            <div class="col">Shipping charge</div>
+                            <div class="col" style="text-align: right;" id="item_subTotal">{{shipping_fee}}
+                            </div>
+                        </div>
+                        <hr>
+                        
+                        
+
+
+                        <div class="row pb-3">
+                            <div class="col"><b>TOTAL</b></div>
+                            <div class="col" style="text-align: right;" id="item_subTotal"><b class="text-primary">&dollar; {{final_total}}</b>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+                <hr>
+                
+            </div>
+
+
+        </div>
+    </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

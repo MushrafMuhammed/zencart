@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.db.models import Sum
 from django.http import JsonResponse
 from customer.decorators import auth_customer
-from customer.models import Cart
+from customer.models import Cart, Order
 from customer.models import Customer
 
 from seller.models import Product
@@ -51,7 +51,8 @@ def cartfun(request, pro_id):
     product = Product.objects.get(id=pro_id)
     if "customer_sessionId" in request.session:
         product_exist = Cart.objects.filter(
-            product_details=pro_id, customer=request.session["customer_sessionId"]
+            product_details=pro_id, 
+            customer=request.session["customer_sessionId"]
         ).exists()
 
         if not product_exist:
@@ -95,5 +96,59 @@ def update_itemTotal(request):
 
     return JsonResponse({"subTotal": total})
 
+@auth_customer
+def checkout(request):
+    if "customer_sessionId" in request.session:
+        totalQuantity = 0
+        subtotal = 0
+        shipping_fee = 0
+        final_total = 0
+        
+        cartDetails = Cart.objects.filter(customer=request.session["customer_sessionId"])
+        subtotal = cartDetails.aggregate(total_price=Sum("price")).get("total_price", 0)
+        totalQuantity = cartDetails.aggregate(total_quantity=Sum("quantity")).get("total_quantity", 0)
+        
+        num_packages = totalQuantity // 10
+        shipping_fee = num_packages * 5
+        final_total = subtotal + shipping_fee
+        
+        if request.method == 'POST':
+            name = request.POST['name']
+            phone = request.POST['phone']
+            address = request.POST['address']
+            place = request.POST['place']
+            pincode = request.POST['pincode']
+            email = request.POST['email']
 
+            
+            
+            for cartDetail in cartDetails:
+                cartId = cartDetail.id
+                orderItem = Order(
+                    cart_id=cartId,
+                    customer_id=request.session["customer_sessionId"],
+                    name=name,
+                    phone=phone,
+                    address=address,
+                    place=place,
+                    pincode=pincode,
+                    email=email
+                )
+                orderItem.save()
+                return redirect('customer:success_page')
+            else:
+                return redirect('customer:login')
+        
+        
+         
 
+    return render(request, 'customer/checkout.html', {
+        'subtotal': subtotal,
+        'totalQuantity': totalQuantity,
+        'num_packages': num_packages,
+        'shipping_fee': shipping_fee,
+        'final_total': final_total
+    })
+
+def success_page(request):
+    return render(request, 'customer/success_page.html')

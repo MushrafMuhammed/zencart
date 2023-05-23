@@ -7,28 +7,27 @@ from seller.models import Product, Seller
 # Create your views here.
 
 def loginfun(request):
-    msg = ''
-    if request.method == 'POST' :
-        base_username = request.POST['email']
-        base_password = request.POST['password']
-
-        try :
+    msg = ""
+    if request.method == 'POST':
+        username = request.POST['email']
+        password = request.POST['password']
+        try:
             seller = Seller.objects.get(
-                 email = base_username,
-                 password = base_password
+                email=username,
+                password=password
             )
-            request.session['seller_sessionID'] = seller.id
-            return redirect('seller:addProducts')
-        except :
-            msg = 'invalid username or password !'
+            request.session["seller_sessionId"] = seller.id
+            return redirect("seller:addProducts")
+        except:
+            msg = "invalid password or username"
 
-    return render(request, 'seller/login.html', {'errorMessage' : msg })
+    return render(request, "seller/login.html", {"error_message": msg})
 
 def logoutfun(request):
     del request.session['seller_sessionId']
     return redirect('seller:login')
 
-@auth_seller
+
 def addproductsfun(request):
     if request.method == "POST":
         base_name = request.POST['name']

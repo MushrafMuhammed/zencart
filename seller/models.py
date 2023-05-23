@@ -1,5 +1,7 @@
 from django.db import models
 
+
+
 # Create your models here.
 
 class Seller(models.Model):
@@ -13,3 +15,8 @@ class Product(models.Model):
     current_stock = models.IntegerField()
     image = models.ImageField(upload_to='product_images/')
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+
+
+

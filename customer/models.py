@@ -17,4 +17,17 @@ class Cart(models.Model) :
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     
+class Order(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    name = models.CharField()
+    phone = models.CharField()
+    address = models.CharField()
+    place = models.CharField()
+    pincode = models.IntegerField()
+    email = models.EmailField()
+    ordered_date = models.DateTimeField(auto_now_add=True)
+
+    def calculate_grand_total(self):
+        return self.cart.quantity * self.cart.price
 
