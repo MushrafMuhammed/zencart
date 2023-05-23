@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.db.models import Sum
 from django.http import JsonResponse
 from customer.models import Cart
 from customer.models import Customer
@@ -27,11 +28,18 @@ def loginfun(request):
 def viewCartfun(request):
     cartProducts = Cart.objects.filter(customer=request.session["customer_sessionId"])
     cartCount = cartProducts.count()
-    return render(
-        request,
-        "customer/cart.html",
-        {"cartProducts": cartProducts, "cartCount": cartCount},
-    )
+
+    
+    subTotal = cartProducts.aggregate(total_price=Sum("price")).get(
+        "total_price", 0
+    )  # aggregation functions Sum(),
+
+
+    if subTotal is None:
+        subTotal = 00.00
+    
+    return render(request,"customer/cart.html",
+        {"cartProducts": cartProducts, "cartCount": cartCount, "subTotal": subTotal})
 
 
 def cartfun(request, pro_id):
@@ -74,5 +82,11 @@ def update_itemTotal(request):
 
     total = int(quantity) * product[0]["price"]
     print(total)
+
+    # Update the Cart with the new price and quantity
+    Cart.objects.filter(
+        product_details_id=pro_id,
+        customer_id=request.session["customer_sessionId"]
+    ).update(quantity=quantity, price=total)
 
     return JsonResponse({"subTotal": total})

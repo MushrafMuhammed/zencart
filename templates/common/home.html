@@ -7,17 +7,20 @@
   <div class="container">
     {% if cart_msg %}
     <script>
-        alert("{{ cart_msg }}");
+      alert("{{ cart_msg }}");
     </script>
     {% endif %}
-    <h1 class="text-center" style="padding-top: 1em;">Products</h1>
+    <h1 class="text-center pt-2">Products</h1>
     <div class="row">
 
       {% for product in products %}
-      <div class="col-md-4  mt-4">
+      <div class="col-md-4 mt-1">
         <div class="card">
-          <img class="card-img-top rounded-circle p-5" src="{{product.image.url}}" class="card-img-top"
-            alt="Card image cap">
+          <div class="d-flex justify-content-center align-items-center">
+            <img class="card-img-top rounded-circle p-3 " src="{{product.image.url}}" class="card-img-top"
+              alt="Card image cap" style="height: 330px; width: 330px;">
+          </div>
+
           <div class="card-body text-dark">
             <h5 class="card-title">{{product.name}}</h5>
             <p class="card-text text-primary"><b>Price: $ {{product.price}}</b></p>
