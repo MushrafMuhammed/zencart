@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'zencart.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'zencart',
+        'NAME': 'zencart_db',
         'USER': 'postgres',
         'PASSWORD': 'mhd@PostgreSQL',
         'HOST': 'localhost',

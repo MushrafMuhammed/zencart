@@ -1,0 +1,61 @@
+def total_price(request):
+    qty = request.POST['qty']
+    pid = request.POST['pid']
+
+    product = Product.objects.filter(id = pid).values('price')
+    
+    total = int(qty)*product[0]['price']
+
+    print(total)
+
+    return JsonResponse({'total':total})
+
+
+    // displayTotal()
+
+    // function displayTotal() {
+    //     let total = 0
+    //     let total_subtotal = $(".item_subtotal")
+    //     for (let i = 0; i < total_subtotal.length; i++) {
+    //         total = total + parseInt(total_subtotal[i].textContent)
+    //     }
+    //     $('#total').html(total)
+
+    // }
+
+
+
+    <div class="col-md-4 ps-4 mt-1 card">
+        <div class="summary">
+            <div>
+                <h5 class="pt-3 pb-2"><b>Cart Totals</b></h5>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col"><b>SubTotal</b></div>
+                    <div class="col" style="text-align: right;">&euro; 132.00</div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col">&nbsp;</div>
+                    <div class="col pb-3" style="text-align: right;">Flat rate: <span
+                            class="text-primary">$500</span></div>
+                </div>
+
+                <div class="row">
+                    <div class="col"><b>Shipping</b></div>
+                    <div class="col pb-3" style="text-align: right;">tes lkfdsajfh aflsdf fasld</div>
+                </div>
+            </form>
+        </div>
+        <hr>
+
+
+        <div class="row">
+            <div class="col"><b id="total">Total</b></div>
+            <div class="col pb-5" style="text-align: right;"><b><span class="text-primary" id="total" >&euro;
+                        </span></b></div>
+        </div>
+        <button class="btn btn-dark">Proceed to Checkout</button>
+    </div>
