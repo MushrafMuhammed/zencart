@@ -21,9 +21,15 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('common/', include('common.urls')),
     path('seller/', include('seller.urls')),
     
+=======
+    path('customer/', include('customer.urls')),
+
+
+>>>>>>> master
 
     
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
