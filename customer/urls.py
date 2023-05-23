@@ -5,9 +5,12 @@ app_name = 'customer'
 
 urlpatterns = [
     path('login', views.loginfun, name='login' ),
+    path('logout', views.logoutfun, name='logout'),
     path('cart', views.viewCartfun, name='viewCart' ),
     path('cart/<int:pro_id>', views.cartfun, name='cart' ),
-    path('delCart/<int:cart_id>', views.delCartfun, name='delCart'),
+    path('delCart/<int:cart_id>', views.delCart, name='delCart'),
     path('update_itemTotal', views.update_itemTotal, name='update_itemTotal'),
+    
+
     # path('delCart/<int:pro_id>', views.delCart, name='delCart' ),
 ]

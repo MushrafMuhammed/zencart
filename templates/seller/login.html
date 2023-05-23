@@ -30,12 +30,12 @@
                                     <div class="card-body p-4 p-lg-5 text-black">
 
                                         {{ errorMessage }}
-                                        <form method='POST'>
+                                        <form method="POST">
                                             {% csrf_token %}
 
                                             <div class="d-flex align-items-center mb-3 pb-1">
                                                 <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
-                                                <span class="h1 fw-bold mb-0">Login</span>
+                                                <span class="h1 fw-bold mb-0">Seller Login</span>
                                             </div>
 
                                             <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your
@@ -43,13 +43,13 @@
 
                                             <div class="mb-4">
                                                 <label class="form-label">Username</label>
-                                                <input type="email" name="email" id=""
+                                                <input type="email" name="email"
                                                     class="form-control form-control-lg" />
                                             </div>
 
                                             <div class="mb-4">
                                                 <label class="form-label">Password</label>
-                                                <input type="password" name="password" id=""
+                                                <input type="password" name="password"
                                                     class="form-control form-control-lg" />
 
                                             </div>

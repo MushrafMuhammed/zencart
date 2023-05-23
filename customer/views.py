@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.db.models import Sum
 from django.http import JsonResponse
+from customer.decorators import auth_customer
 from customer.models import Cart
 from customer.models import Customer
 
@@ -24,22 +25,26 @@ def loginfun(request):
 
     return render(request, "customer/login.html", {"error_message": msg})
 
+def logoutfun(request):
+    del request.session['customer_sessionId']
+    return redirect('common:home')
 
+@auth_customer
 def viewCartfun(request):
     cartProducts = Cart.objects.filter(customer=request.session["customer_sessionId"])
     cartCount = cartProducts.count()
-
-    
     subTotal = cartProducts.aggregate(total_price=Sum("price")).get(
         "total_price", 0
     )  # aggregation functions Sum(),
 
-
     if subTotal is None:
         subTotal = 00.00
-    
-    return render(request,"customer/cart.html",
-        {"cartProducts": cartProducts, "cartCount": cartCount, "subTotal": subTotal})
+
+    return render(
+        request,
+        "customer/cart.html",
+        {"cartProducts": cartProducts, "cartCount": cartCount, "subTotal": subTotal},
+    )
 
 
 def cartfun(request, pro_id):
@@ -66,7 +71,7 @@ def cartfun(request, pro_id):
         return redirect("customer:login")
 
 
-def delCartfun(request, cart_id):
+def delCart(request, cart_id):
     delItem = Cart.objects.get(
         id=cart_id, customer=request.session["customer_sessionId"]
     )
@@ -85,8 +90,10 @@ def update_itemTotal(request):
 
     # Update the Cart with the new price and quantity
     Cart.objects.filter(
-        product_details_id=pro_id,
-        customer_id=request.session["customer_sessionId"]
+        product_details_id=pro_id, customer_id=request.session["customer_sessionId"]
     ).update(quantity=quantity, price=total)
 
     return JsonResponse({"subTotal": total})
+
+
+

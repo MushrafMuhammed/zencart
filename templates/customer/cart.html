@@ -1,4 +1,4 @@
-{% extends 'common/layout.html' %}
+{% extends 'customer/layout.html' %}
 {% load static %}
 
 {% block title %}
@@ -12,8 +12,8 @@
 <section class="bg-light pt-3" id="card-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-7 me-3">
-                <div class="row p-1">
+            <div class=" me-3">
+                <div c  lass="row p-1">
                     <div class="bg-primary pt-4 pb-3 text-center card">
                         <h5 class="text-light h5t-3 pb-2">
                             SHOPPING CART <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red"
@@ -70,88 +70,41 @@
 
 
                                         <td><input type="text" class="form-control item_subtotal"
-                                                data-item="{{ product.product_details.id }}"
-                                                value="{{ product.price }}" readonly></td>
+                                                data-item="{{ product.product_details.id }}" value="{{ product.price }}"
+                                                readonly></td>
                                     </tr>
                                     {%endfor%}
 
 
                                 </tbody>
                             </table>
+
+                            <div class="row">
+                                <div class="col"><b>SubTotal</b></div>
+                                <div class="col" style="text-align: right;" id="item_subTotal"><b>&dollar; {{subTotal}}</b>
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center text-center mt-4">
+                                <button class="btn btn-dark" style="width: 50%;">Proceed to Checkout</button>
+                            </div>
+                            
+                            <!-- <div class="pb-2 justify-content-center text-center">
+                                <button class="btn btn-dark" style="width: 50%;" id="offer-btn">Check
+                                    offers</button>
+                            </div> -->
                         </form>
 
-                        <div class="pb-2 justify-content-center text-center">
-                            <button class="btn btn-dark" style="width: 50%;" disabled>Check offers</button>
-                        </div>
-                        <div class="row pb-2  ">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="name" value="" readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-primary">Apply Discount</button>
-                            </div>
-                        </div>
-                        <div class="row pb-2 ">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="name" value="" readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-primary">Apply Discount</button>
-                            </div>
-                        </div>
-                        <div class="row pb-2 ">
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" id="name" value="" readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-primary">Apply Discount</button>
-                            </div>
-                        </div>
+
+                        
+
 
                     </div>
 
                 </div>
             </div>
 
-            <div class="col-md-4 ps-4 mt-1 card">
-                <div class="summary">
-                    <div>
-                        <h5 class="pt-3 pb-2"><b>Cart Totals</b></h5>
-                    </div>
-                    <form>
-                        <div class="row">
-                            <div class="col"><b>SubTotal</b></div>
-                            <div class="col" style="text-align: right;" id="item_subTotal"><b>&dollar; {{subTotal}}</b> </div>
-                        </div>
-                        <hr>
-
-                        <div class="row">
-                            <div class="col">&nbsp;</div>
-                            <div class="col pb-3" style="text-align: right;">Flat rate: <span
-                                    class="text-primary">$500</span></div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col"><b>Shipping</b></div>
-                            <div class="col pb-3" style="text-align: right;">$ 00</div>
-                        </div>
-                        <div class="row">
-                            <div class="col"><b>Gift Wrap</b></div>
-                            <div class="col pb-3" style="text-align: right;">$ 00</div>
-                        </div>
-                    </form>
-                </div>
-                <hr>
-
-
-                <div class="row">
-                    <div class="col"><b>Total</b></div>
-                    <div class="col pb-5" style="text-align: right;"><b><span class="text-primary" id="total">&dollar;
-                            </span></b></div>
-                </div>
-                <button class="btn btn-dark">Proceed to Checkout</button>
-            </div>
+            
 
 
         </div>
@@ -166,23 +119,19 @@
     crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        
-
-        
         $.ajaxSetup({
             headers: {
                 "X-CSRFToken": '{{ csrf_token }}'
             }
-        })
+        });
+
+        // Quantity and price change
         $('input').change(function () {
-            let qty = $(this).val()
-            let pid = $(this).attr('data-item')
-
-
+            let qty = $(this).val();
+            let pid = $(this).attr('data-item');
 
             $.ajax({
                 url: "{% url 'customer:update_itemTotal' %}",
-
                 data: {
                     'quantity': qty,
                     'pro_id': pid
@@ -196,16 +145,11 @@
                         total += parseFloat($(this).val());
                     });
 
-                    $('#item_subTotal').html(total.toFixed(2)); // Assuming you want to display the total with two decimal places
-                    console.log(response.subTotal);
+                    $('#item_subTotal').html(total.toFixed(2));
                 }
-            })
-        })
-
-    })
-
-
-
+            });
+        });
+    });
 </script>
 
 

@@ -1,5 +1,6 @@
 
 from django.shortcuts import redirect, render
+from seller.decorators import auth_seller
 
 from seller.models import Product, Seller
 
@@ -23,6 +24,11 @@ def loginfun(request):
 
     return render(request, 'seller/login.html', {'errorMessage' : msg })
 
+def logoutfun(request):
+    del request.session['seller_sessionId']
+    return redirect('seller:login')
+
+@auth_seller
 def addproductsfun(request):
     if request.method == "POST":
         base_name = request.POST['name']
